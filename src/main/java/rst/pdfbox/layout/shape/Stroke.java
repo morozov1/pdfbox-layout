@@ -1,8 +1,9 @@
 package rst.pdfbox.layout.shape;
 
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+
 import java.io.IOException;
 
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 
 /**
  * This is a container for all information needed to perform a stroke.

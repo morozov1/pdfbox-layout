@@ -1,7 +1,23 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.apache.pdfbox:pdfbox:2.0.7'
+    }
+}
+
+
 dependencies {
-  compile("org.apache.pdfbox:pdfbox:2.0.4")
+    repositories {
+        mavenCentral()
+    }
+  compile("org.apache.pdfbox:pdfbox:2.0.7")
   testCompile("junit:junit:4.12")
 }
   
@@ -73,8 +89,6 @@ task copyExamples(type: Copy) {
 }
 
 def adaptToPdfBox2(String line) {
-   line = line.replaceAll('org.apache.pdfbox.pdmodel.edit.PDPageContentStream', 'org.apache.pdfbox.pdmodel.PDPageContentStream')
-   line = line.replaceAll('org.apache.pdfbox.pdmodel.graphics.xobject.PDXObject', 'org.apache.pdfbox.pdmodel.graphics.PDXObject')
    return line
 }
 

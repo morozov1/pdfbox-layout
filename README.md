@@ -1,6 +1,11 @@
 [![Release](https://jitpack.io/v/ralfstuckert/pdfbox-layout.svg)](https://jitpack.io/#ralfstuckert/pdfbox-layout)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
+Fork ralfstuckert/pdfbox-layout library with paragraph rotation.
+
+Example: 
+paragraph.drawTextRotated(contentStream, pos, Alignment.Left, -1.1)
+
 # pdfbox-layout
 A tiny layout library on top of pdfbox. Main features are
 

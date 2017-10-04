@@ -321,12 +321,12 @@ public class CompatibilityHelper {
 	    final PDDocument document, final BufferedImage image)
 	    throws IOException {
 	Map<BufferedImage, PDImageXObject> imageCache = getImageCache(document);
-	PDImageXObject pdxObjectImage = imageCache.get(image);
-	if (pdxObjectImage == null) {
-	    pdxObjectImage = LosslessFactory.createFromImage(document, image);
-	    imageCache.put(image, pdxObjectImage);
+	PDImageXObject PDImageXObject = imageCache.get(image);
+	if (PDImageXObject == null) {
+	    PDImageXObject = LosslessFactory.createFromImage(document, image);
+	    imageCache.put(image, PDImageXObject);
 	}
-	return pdxObjectImage;
+	return PDImageXObject;
     }
 
 }

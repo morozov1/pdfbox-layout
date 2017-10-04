@@ -1,7 +1,10 @@
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '4.2'
 }
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 buildscript {
     repositories {
@@ -9,7 +12,16 @@ buildscript {
     }
     dependencies {
         classpath 'org.dm.gradle:gradle-bundle-plugin:0.8.2'
+        classpath 'org.apache.pdfbox:pdfbox:2.0.7'
     }
+}
+
+dependencies {
+  repositories {
+    mavenCentral()
+  }
+  compile("org.apache.pdfbox:pdfbox:2.0.7")
+  testCompile("junit:junit:4.12")
 }
 
 subprojects {
@@ -24,7 +36,7 @@ subprojects {
   apply plugin: 'org.dm.bundle'  
 
   group = 'com.github.ralfstuckert.pdfbox-layout'
-  version = '1.0.0'
+  version = '1.0.1'
 
   repositories {
       mavenCentral()
@@ -36,7 +48,7 @@ subprojects {
   }
 
   bundle {
-    instruction 'Export-Package', 'rst.pdfbox.layout.*;-split-package:=merge-first' 
+    instruction 'Export-Package', 'rst.pdfbox.layout.*;-split-package:=merge-first'
     instruction 'Import-Package', "!rst.pdfbox.layout.*,*"
     instruction 'Bundle-Name', project.name
     instruction 'Bundle-SymbolicName', "${project.group}.${project.name}"
@@ -99,7 +111,6 @@ subprojects {
     destinationDir = file("examples")
     sourceCompatibility = '1.7'
     targetCompatibility = '1.7'
-    dependencyCacheDir = file("${buildDir}/dependency-cache")
     classpath = sourceSets.main.compileClasspath
   }
 
@@ -116,5 +127,15 @@ def getClassName(classFile) {
 }
 
 
+publishing {
+  publications {
+    mavenClassesJar(MavenPublication) {
+      groupId 'com.github.ralfstuckert.pdfbox-layout'
+      artifactId 'pdfbox2-layout'
+      version '1.0.1'
+      from components.java
 
+    }
+  }
+}
 

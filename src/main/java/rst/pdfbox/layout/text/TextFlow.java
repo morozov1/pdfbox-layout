@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 
 /**
@@ -260,10 +260,21 @@ public class TextFlow implements TextSequence, WidthRespecting {
 
     @Override
     public void drawText(PDPageContentStream contentStream, Position upperLeft,
-	    Alignment alignment, DrawListener drawListener) throws IOException {
+                         Alignment alignment, DrawListener drawListener) throws IOException {
 	TextSequenceUtil.drawText(this, contentStream, upperLeft, drawListener, alignment,
 		getMaxWidth(), getLineSpacing(),
 		isApplyLineSpacingToFirstLine());
+    }
+
+
+    public void drawTextRotated(PDPageContentStream contentStream, Position upperLeft,
+                                Alignment alignment, double angle, double paragraphHeigth) throws IOException {
+        contentStream.beginText();
+        TextSequenceUtil.drawTextRotated(this, contentStream, upperLeft, null, alignment,
+                getMaxWidth(), getLineSpacing(),
+                isApplyLineSpacingToFirstLine(),
+                angle, paragraphHeigth);
+        contentStream.endText();
     }
 
     public void drawTextRightAligned(PDPageContentStream contentStream,

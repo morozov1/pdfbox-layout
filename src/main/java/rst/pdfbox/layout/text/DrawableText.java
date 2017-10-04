@@ -1,8 +1,9 @@
 package rst.pdfbox.layout.text;
 
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+
 import java.io.IOException;
 
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 
 /**
  * Represents a drawable text.
@@ -26,5 +27,5 @@ public interface DrawableText extends Area {
      *             by pdfbox.
      */
     void drawText(PDPageContentStream contentStream, Position upperLeft,
-	    Alignment alignment, DrawListener drawListener) throws IOException;
+                  Alignment alignment, DrawListener drawListener) throws IOException;
 }

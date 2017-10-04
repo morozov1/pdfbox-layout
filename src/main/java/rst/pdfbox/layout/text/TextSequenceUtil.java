@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
-
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import rst.pdfbox.layout.elements.Dividable.Divided;
 import rst.pdfbox.layout.elements.Paragraph;
 import rst.pdfbox.layout.util.Pair;
@@ -487,6 +486,32 @@ public class TextSequenceUtil {
 	}
 
     }
+
+	public static void drawTextRotated(TextSequence text,
+									   PDPageContentStream contentStream, Position upperLeft,
+									   DrawListener drawListener, Alignment alignment, float maxWidth,
+									   final float lineSpacing, final boolean applyLineSpacingToFirstLine,
+									   double angle, double paragraphHeigth)
+			throws IOException {
+		Position paragraphPosition = upperLeft;
+		List<TextLine> lines = wordWrapToLines(text, maxWidth);
+		float maxLineWidth = Math.max(maxWidth, getMaxWidth(lines));
+		Position position = upperLeft;
+		float lastLineHeight = 0;
+		for (int i = 0; i < lines.size(); i++) {
+			boolean applyLineSpacing = i > 0 || applyLineSpacingToFirstLine;
+			TextLine textLine = lines.get(i);
+			float currentLineHeight = textLine.getHeight();
+			float lead = lastLineHeight;
+			if (applyLineSpacing) {
+				lead += (currentLineHeight * (lineSpacing - 1));
+			}
+			lastLineHeight = currentLineHeight;
+			position = position.add(0, -lead);
+			textLine.drawRotated(contentStream, position, alignment, maxLineWidth, drawListener, angle, paragraphPosition, paragraphHeigth);
+		}
+
+	}
 
     /**
      * Gets the (left) offset of the line with respect to the target width and

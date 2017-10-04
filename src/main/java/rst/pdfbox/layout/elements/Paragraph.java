@@ -3,7 +3,7 @@ package rst.pdfbox.layout.elements;
 import java.io.IOException;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import rst.pdfbox.layout.text.Alignment;
 import rst.pdfbox.layout.text.DrawListener;
@@ -60,6 +60,10 @@ public class Paragraph extends TextFlow implements Drawable, Element,
     public void draw(PDDocument pdDocument, PDPageContentStream contentStream,
 	    Position upperLeft, DrawListener drawListener) throws IOException {
 	drawText(contentStream, upperLeft, getAlignment(), drawListener	);
+    }
+
+    public void drawTextRotated(PDPageContentStream contentStream, Position upperLeft, Alignment alignment, double angle) throws IOException {
+        super.drawTextRotated(contentStream, upperLeft, alignment, angle, this.getHeight());
     }
 
     @Override
